@@ -4,6 +4,7 @@ import (
 	"ImaginaryCraftManager/auth/weblogin"
 	"ImaginaryCraftManager/cmd/app/route/rutils"
 	"ImaginaryCraftManager/jsonStructs/requestStructs/authStructs"
+	"crypto/sha256"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -49,7 +50,7 @@ func loginFunc(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if weblogin.CheckLogin(user.Username, user.Password) {
+	if weblogin.CheckLogin(user.Username, fmt.Sprintf("%X", sha256.Sum256([]byte(user.Password)))) {
 		fmt.Println("登陆成功")
 		expiration := time.Now().Add(24 * time.Hour)
 		cookie := &http.Cookie{

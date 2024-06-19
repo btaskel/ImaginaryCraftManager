@@ -2,6 +2,8 @@ package weblogin
 
 import (
 	logger "ImaginaryCraftManager/log"
+	"crypto/sha256"
+	"fmt"
 	"github.com/go-ini/ini"
 	"math/rand"
 )
@@ -15,6 +17,10 @@ func generateRandomString(length int) string {
 		b[i] = letters[rand.Intn(len(letters))]
 	}
 	return string(b)
+}
+
+func getSha256(bytes []byte) string {
+	return fmt.Sprintf("%X", sha256.Sum256(bytes))
 }
 
 func GenLoginToken(filePath string) {

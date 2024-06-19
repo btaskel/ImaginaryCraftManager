@@ -10,7 +10,6 @@ func Infof(format string, args ...any) {
 	if logger.level >= INFO {
 		logger.Printf("Info: "+format, args)
 	}
-	//logger.Infof(format, args)
 }
 
 func Warningf(format string, args ...any) {

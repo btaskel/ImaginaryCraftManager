@@ -44,11 +44,11 @@ func LoadUsers(filePath string) {
 	users = make(map[string]string)
 	username := section.Key("Username").String()
 	password := section.Key("Password").String()
-	users[username] = password
+	users[username] = getSha256([]byte(password))
 	fmt.Println(users)
 }
 
-func CheckLogin(storedUser string, storedPassword string) bool {
+func CheckLogin(storedUser, storedPassword string) bool {
 	return storedPassword == users[storedUser] && storedPassword != "" && storedUser != ""
 }
 
